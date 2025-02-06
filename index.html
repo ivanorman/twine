@@ -26,7 +26,8 @@ tw-icon[alt="Undo"],tw-icon[alt="Redo"]{
 (set: $constitution to (random: 10, 18))
 (set: $metbob to (random: 0, 0))
 (set: $marshallbob to (random: 0, 0))
-(set: $charName to &quot;newbornbob&quot;)</tw-passagedata><tw-passagedata pid="2" name="Title" tags="" position="600,300" size="100,100">(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;XXXXXXX===&quot;)[&#39;&#39;Terrible Bob Simulator&#39;&#39;
+(set: $charName to &quot;newbornbob&quot;)
+(set: $key to 0)</tw-passagedata><tw-passagedata pid="2" name="Title" tags="" position="600,300" size="100,100">(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;XXXXXXX===&quot;)[&#39;&#39;Terrible Bob Simulator&#39;&#39;
 
 ...some credits
 
@@ -140,26 +141,26 @@ The beast in front of you vanquished and an item that feels important at hand, y
     (open-url: $gameURL)
 ]</tw-passagedata><tw-passagedata pid="23" name="krab" tags="" position="375,1125" size="100,100">A bit more at ease and attentive to your surroundings, the bob facility has lost a bit of its mystique -- the whole place feels more tenable now. Still, the harsh lights bear down upon you and the pure white of your surroundings singes your eyes with its pristine brightness, but you&#39;re beginning to pick up on patterns amongst the maze of towering shelves and countless hallways.
 
-The Krusty Krab -- what could this place be? You have no answers, but as you peruse the facility you notice small emblems of an anthropomorphic crab-like character emblazoned on the occasional signpost. You follow these for what feels like miles, and then you see it, [[the krab -&gt;krab3]].</tw-passagedata><tw-passagedata pid="24" name="krab3" tags="" position="1200,1100" size="100,100">Before you stands a colossal building, constructed entirely out of rotting wood, iand vaguely conical in shape. You find it difficult to fathom how this behemoth could be contained within the confines of the bob facility, but regardless you venture forth towards its entrance. Any reprieve from the endless walls of blank sterility feels like reprive for you now.
+The Krusty Krab -- what could this place be? You have no answers, but as you peruse the facility you notice small emblems of an anthropomorphic crab-like character emblazoned on the occasional signpost. You follow these for what feels like miles, and then you see it, [[the krab -&gt;krab3]].</tw-passagedata><tw-passagedata pid="24" name="krab3" tags="" position="1200,1100" size="100,100">Before you stands a colossal building, constructed entirely out of rotting wood, and vaguely conical in shape. You find it difficult to fathom how this behemoth could be contained within the confines of the bob facility, but regardless you venture forth towards its entrance. Any reprieve from the endless walls of blank sterility feels like reprieve for you now.
 
-At the front door is a key hole along with a number pad, prompting a password to be inputted.
-
-(if: $key is 1)[[[Unlock the door -&gt;krab2]]]
-
-(set: $codeEntered to (prompt: &quot;Enter the secret code word:&quot;))
-
-(if: $codeEntered is &quot;plankton&quot;)[
-    (set: $codeCorrect to true)
+At the front door is a keyhole along with a number pad, prompting a (link: &quot;password.&quot;)[
+    (set: $codeEntered to (prompt: &quot;Enter the secret code word:&quot;, &quot;&quot;))
+    (if: $codeEntered is &quot;plankton&quot;)[
+        (set: $codeCorrect to true)
+        [[Unlocked! -&gt;krab2]]
+    ](else:)[[A laser turret emerges from the door, and strikes you dead -&gt;theend]]
 ]
 
-(if: $codeCorrect)[
+
+(if: $key &gt; 0)[[[Unlock the door -&gt;krab2]]]
+
+(if: $codeCorrect is true)[
     [[Unlocked! -&gt;krab2]]
 ]
-(else:)[
-    (if: $codeEntered is not &quot;&quot;)[
-        (print: &quot;Incorrect code. Try again!&quot;)
-    ]
-]</tw-passagedata><tw-passagedata pid="25" name="convo continued" tags="" position="800,1400" size="100,100">(text-style:&quot;shudder&quot;)[&quot;Oh, so you do know your name?&quot;] 
+(else-if: $codeEntered is not 0)[
+    [[A laser turret emerges from the door, and strikes you dead -&gt;theend]]
+]
+</tw-passagedata><tw-passagedata pid="25" name="convo continued" tags="" position="800,1400" size="100,100">(text-style:&quot;shudder&quot;)[&quot;Oh, so you do know your name?&quot;] 
 
 The beast shuddered, its words quaking through you. 
 
@@ -172,7 +173,7 @@ The colossus moved its massive hand to its front pocket, and procured a small ke
 With that, the monster left as swiftly as it came. Shaken, but emboldened by your survival, you venture forth to [[explore the bob facility -&gt;krab]]</tw-passagedata><tw-passagedata pid="26" name="todeath" tags="" position="575,1400" size="100,100">(text-style:&quot;shudder&quot;)[&quot;Hmmm... Nothing I can glean from you I suppose.&quot;]
 
 The beast lunges for you, but not with malice in its eyes so much as disappointment.
-(if: $dexterity &gt; 12)[[[Run and hide -&gt;run and hide]]](else:)[[[You cannot escape its clutches -&gt;death]]]</tw-passagedata></tw-storydata>
+(if: $dexterity &gt; 12)[[[Run and hide -&gt;run and hide]]](else:)[[[You cannot escape its clutches -&gt;death]]]</tw-passagedata><tw-passagedata pid="27" name="theend" tags="" position="1325,1225" size="100,100">The End.</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
